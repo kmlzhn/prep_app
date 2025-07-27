@@ -1,36 +1,117 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# prepAI - Платформа подготовки к IELTS с ИИ
 
-## Getting Started
+Современная платформа для подготовки к экзамену IELTS с поддержкой искусственного интеллекта.
 
-First, run the development server:
+## 🚀 Технологии
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Next.js 14** - React фреймворк
+- **Tailwind CSS** - Utility-first CSS фреймворк
+- **JavaScript** - Основной язык программирования
+
+## 📁 Структура проекта
+
+```
+prep-app/
+├── app/
+│   ├── components/           # Переиспользуемые компоненты
+│   │   ├── Header.js        # Навигационная панель
+│   │   ├── Hero.js          # Главная секция
+│   │   ├── Timeline.js      # Этапы обучения
+│   │   ├── Comparison.js    # Сравнение методов обучения
+│   │   ├── Features.js      # Возможности платформы
+│   │   ├── Pricing.js       # Тарифные планы
+│   │   ├── FAQ.js           # Часто задаваемые вопросы
+│   │   └── Footer.js        # Подвал сайта
+│   │
+│   ├── api/                 # API маршруты для ИИ
+│   │   ├── ai-chat/         # Чат с ИИ-помощником
+│   │   ├── writing-check/   # Проверка эссе
+│   │   └── speaking-practice/ # Практика разговорной речи
+│   │
+│   ├── courses/             # Страница курсов
+│   ├── practice/            # Страница практики
+│   ├── page.js              # Главная страница
+│   ├── layout.js            # Основной layout
+│   └── globals.css          # Глобальные стили
+│
+├── public/                  # Статические файлы
+├── package.json            # Зависимости проекта
+└── tailwind.config.js      # Конфигурация Tailwind
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🎯 Основные секции
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### 1. **Главная страница**
+- Hero секция с призывом к действию
+- Timeline - этапы подготовки
+- Сравнение традиционного и ИИ-обучения
+- Возможности платформы
+- Тарифные планы
+- FAQ секция
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### 2. **Страница курсов** (`/courses`)
+- IELTS General Training
+- IELTS Academic
+- IELTS Speaking Intensive
+- Детальное описание каждого курса
 
-## Learn More
+### 3. **Страница практики** (`/practice`)
+- Speaking Practice с ИИ
+- Writing Check
+- Listening Tests
+- Reading Comprehension
 
-To learn more about Next.js, take a look at the following resources:
+### 4. **API эндпоинты**
+- `/api/ai-chat` - Чат с ИИ-помощником
+- `/api/writing-check` - Проверка эссе
+- `/api/speaking-practice` - Анализ речи
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🤖 ИИ Функциональность
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Проект включает заготовки для интеграции с ИИ:
 
-## Deploy on Vercel
+1. **Чат-помощник** - отвечает на вопросы по IELTS
+2. **Проверка эссе** - анализ структуры, грамматики, лексики
+3. **Speaking практика** - анализ произношения и беглости речи
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🚀 Запуск проекта
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```bash
+# Установка зависимостей
+npm install
+
+# Запуск в режиме разработки
+npm run dev
+
+# Сборка для продакшена
+npm run build
+
+# Запуск продакшен версии
+npm start
+```
+
+Откройте [http://localhost:3000](http://localhost:3000) в браузере.
+
+## 🎨 Дизайн
+
+Дизайн вдохновлен современными образовательными платформами с акцентом на:
+- Чистый и минималистичный интерфейс
+- Градиенты и современная типографика
+- Responsive дизайн для всех устройств
+- Интуитивная навигация
+
+## 📝 Следующие шаги
+
+1. Интеграция с реальными ИИ API (OpenAI, Claude, и др.)
+2. Добавление системы аутентификации
+3. База данных для хранения прогресса пользователей
+4. Платежная система
+5. Мобильное приложение
+
+## 🤝 Вклад в проект
+
+Мы приветствуем вклад в развитие проекта! Создавайте issues и pull requests.
+
+## 📄 Лицензия
+
+MIT License

@@ -34,7 +34,15 @@ export async function POST(request) {
     if (!prisma) {
       return NextResponse.json({ 
         error: 'Database not configured',
-        message: 'Database connection is not available'
+        message: 'Database connection is not available. Please configure DATABASE_URL environment variable.',
+        user: {
+          id: 'mock-user-id',
+          email: 'user@example.com',
+          firstName: 'Mock',
+          lastName: 'User',
+          targetScore: 7.0,
+          currentLevel: 'Beginner'
+        }
       }, { status: 503 })
     }
 
@@ -122,6 +130,25 @@ export async function GET(request) {
     
     if (!userId) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    // Check if Prisma client is available
+    if (!prisma) {
+      return NextResponse.json({ 
+        error: 'Database not configured',
+        message: 'Database connection is not available. Please configure DATABASE_URL environment variable.',
+        user: {
+          id: 'mock-user-id',
+          clerkId: userId,
+          email: 'user@example.com',
+          firstName: 'Mock',
+          lastName: 'User',
+          targetScore: 7.0,
+          currentLevel: 'Beginner',
+          practiceTests: [],
+          scores: []
+        }
+      }, { status: 503 })
     }
 
     const user = await prisma.user.findUnique({

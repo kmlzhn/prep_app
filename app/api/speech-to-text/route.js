@@ -8,10 +8,10 @@ import ffmpegPath from 'ffmpeg-static';
 
 const execPromise = util.promisify(exec);
 
-// Initialize OpenAI client
-const openai = new OpenAI({
+// Initialize OpenAI client only if API key is available
+const openai = process.env.OPENAI_API_KEY ? new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
-});
+}) : null;
 
 // Function to trim silence from audio file using ffmpeg
 async function trimSilence(inputPath, outputPath) {
@@ -60,6 +60,14 @@ export async function POST(request) {
     const stats = fs.statSync(fileToTranscribe);
     if (stats.size < 1000) { // Minimum file size check (1KB)
       return NextResponse.json({ error: 'Audio file is too small or empty' }, { status: 400 });
+    }
+
+    // Check if OpenAI client is available
+    if (!openai) {
+      return NextResponse.json({ 
+        error: 'OpenAI API key not configured',
+        text: 'Mock transcription (OpenAI not configured)'
+      }, { status: 500 });
     }
 
     // Send to OpenAI Whisper API

@@ -9,10 +9,10 @@ import { analyzeIELTSSpeakingWithGemini } from '../../../lib/gemini';
 
 const execPromise = util.promisify(exec);
 
-// Initialize OpenAI client
-const openai = new OpenAI({
+// Initialize OpenAI client only if API key is available
+const openai = process.env.OPENAI_API_KEY ? new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
-});
+}) : null;
 
 // Function to trim silence from audio file using ffmpeg
 async function trimSilence(inputPath, outputPath) {
@@ -193,12 +193,20 @@ async function analyzeResponseWithLLM(audioData, question, part) {
 
       // Step 1: Transcribe with OpenAI Whisper
       console.log('Starting transcription with OpenAI Whisper...');
-      transcription = await openai.audio.transcriptions.create({
-        file: fs.createReadStream(fileToTranscribe),
-        model: 'whisper-1',
-        language: 'en', // Default to English, can be made dynamic
-      });
-      console.log('Transcription completed:', transcription.text);
+      
+      // Check if OpenAI client is available
+      if (!openai) {
+        console.log('OpenAI client not available, using mock transcription');
+        transcription = { text: "Mock transcription for testing purposes" };
+        transcriptionSource = "Mock (OpenAI not configured)";
+      } else {
+        transcription = await openai.audio.transcriptions.create({
+          file: fs.createReadStream(fileToTranscribe),
+          model: 'whisper-1',
+          language: 'en', // Default to English, can be made dynamic
+        });
+        console.log('Transcription completed:', transcription.text);
+      }
 
       // Clean up files
       try {

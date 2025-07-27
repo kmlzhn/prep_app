@@ -30,6 +30,14 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
+    // Check if Prisma client is available
+    if (!prisma) {
+      return NextResponse.json({ 
+        error: 'Database not configured',
+        message: 'Database connection is not available'
+      }, { status: 503 })
+    }
+
     const data = await request.json()
     const { email, firstName, lastName, phoneNumber, targetScore, currentLevel } = data
 
